@@ -1,6 +1,6 @@
 # Oi, tudo bem? 🙃
 
-Esse é o repositório de um teste com o uso de uma api que encontrei, na qual é criado um projeto onde o objetivo é elaborar um baralho de cartas aleatórias... 
+Esse é o repositório de um teste, na qual é criado um projeto onde o objetivo é elaborar um baralho de cartas aleatórias... 
 
 
 ### Links Uteis
