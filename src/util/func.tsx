@@ -1,18 +1,15 @@
-import { IStorage } from "../typings/types";
+import { IStorage } from '../typings/types';
 
-export const setStorage = (data: { [key: string]: string }) => {
-    data.time = dataHora();
-    window.localStorage.setItem("deckofcard", JSON.stringify(data))
-}
+export const setStorage = (data: Pick<IStorage, 'deck_id' | 'name'>) => {
+    try { window.localStorage.setItem('deckofcard', JSON.stringify({ ...data, time: dataHora() })); }
+    catch { /* A mesa continua disponível mesmo sem armazenamento local. */ }
+};
 
 export const getStorage = (): IStorage | null => {
-    const storage = window.localStorage.getItem("deckofcard")
-    return  storage ? JSON.parse(storage) : null
-}
+    try {
+        const value = JSON.parse(window.localStorage.getItem('deckofcard') || 'null');
+        return value && typeof value.deck_id === 'string' && typeof value.name === 'string' && typeof value.time === 'string' ? value : null;
+    } catch { return null; }
+};
 
-const pad = (id:string | number) => (id).toString().padStart(2, "0");
-
-export const dataHora = () => {
-    const data = new Date();
-    return `${pad(data.getDate())}/${pad(data.getMonth() + 1)}  ${pad(data.getHours())}:${pad(data.getMinutes())}:${pad(data.getSeconds())}`
-}
+export const dataHora = () => new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }).format(new Date());

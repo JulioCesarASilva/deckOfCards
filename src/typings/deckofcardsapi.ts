@@ -27,7 +27,7 @@ export interface IPiles {
 
 export interface IPlayer {
     cards: ICards[],
-    remaining: string
+    remaining: number
 }
 
 
