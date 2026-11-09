@@ -1,13 +1,11 @@
-import React from 'react'
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Baralho from './pages/Baralho';
 
 export function Router() {
-    return (
-        <Routes>
-            {<Route path="" element={<Home />} />}
-            {<Route path="/:deck_id&:name" element={<Baralho />} />}
-        </Routes>
-    )
+    return <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/:deck_id&:name" element={<Baralho />} />
+        <Route path="*" element={<Home />} />
+    </Routes>;
 }

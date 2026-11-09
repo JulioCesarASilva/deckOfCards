@@ -1,29 +1,12 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-
-import IStyle, { IStorage } from '../typings/types';
-
+import { Link } from 'react-router-dom';
 import { getStorage } from '../util/func';
 
-const style: IStyle = {
-    container: {
-        position: "relative",
-        cursor: "pointer",
-        fontSize: "16px",
-        textDecoration: "underline"
-    }
+export default function Historic() {
+    const storage = getStorage();
+    if (!storage) return null;
+    return <Link className="history-link" to={`/${encodeURIComponent(storage.deck_id)}&${encodeURIComponent(storage.name)}`}>
+        <span className="history-icon" aria-hidden="true">↗</span>
+        <span><strong>Continuar com {storage.name}</strong><small>Última mesa · {storage.time}</small></span>
+        <span aria-hidden="true">→</span>
+    </Link>;
 }
-
-
-const Historic = () => {
-    const [storage, setStorage] = React.useState<IStorage | null>()
-    const navigate = useNavigate()
-
-    React.useEffect(() => {
-        setStorage(getStorage())
-    },[])
-
-    return <>{storage && <span onClick={() => navigate(`/${storage.deck_id}&${storage.name}`)} style={style.container}>Ir para o jogo criado em {storage.time}</span>}</>
-}
-
-export default Historic

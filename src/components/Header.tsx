@@ -1,49 +1,10 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import IStyle from '../typings/types';
+interface HeaderProps { deck_id?: string; deck_name?: string; back?: boolean }
 
-const style: IStyle = {
-    container: {
-        display: "flex",
-        alignItems: "center",
-        width: "100%"
-    },
-    info: {
-        marginLeft: "auto",
-        display: "flex",
-        width: "min-content",
-        flexDirection: "column",
-        alignItems: "flex-end",
-        paddingRight: "10px"
-    }, 
-    voltar: {
-        cursor: "pointer",
-        paddingLeft: "10px"
-    },
-    name: {
-        paddingLeft: "10px",
-        paddingTop: "10px",
-        fontWeight: 700
-    }
+export default function Header({ deck_id, deck_name, back }: HeaderProps) {
+    return <header className="site-header">
+        <Link to="/" className="brand"><span className="brand-icon" aria-hidden="true">♠</span> baralho<span className="brand-dot">.</span></Link>
+        <div className="header-detail">{back ? <><span className="player-name">{deck_name}</span><Link className="back-link" to="/">← Início</Link></> : <span>Um baralho. Muitas possibilidades.</span>}</div>
+    </header>;
 }
-interface IInfo {
-    deck_id?: string,
-    deck_name?: string,
-    back?: boolean
-}
-
-const Header = ({ deck_id, deck_name, back }: IInfo) => {
-    const navigate = useNavigate()
-
-    return <header style={style.container}>
-        { back ? <span onClick={()=> navigate("/")} style={style.voltar}>← Voltar</span> : <h2  style={style.name}>Ola!</h2>}
-
-        <div style={style.info}>
-            { deck_name && <span style={style.name}>{deck_name}</span> }
-            { deck_id && <span>{deck_id}</span> }
-        </div>
-    </header>
-}
-
-export default Header
