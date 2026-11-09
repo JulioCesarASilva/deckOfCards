@@ -29,8 +29,3 @@ export interface IPlayer {
     cards: ICards[],
     remaining: number
 }
-
-
-export interface IDiscard {
-    remaining: number
-}
